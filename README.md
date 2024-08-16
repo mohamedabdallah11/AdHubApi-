@@ -6,6 +6,9 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
+## About AdHubApi
+
+AdHub - A dynamic platform for creating, managing, and browsing advertisements. Users can post their ads, search for listings, and engage with a wide range of categories. Built for scalability and ease of use, AdHub aims to be a comprehensive solution for online advertisement management.
 
 ## About Laravel
 
