@@ -47,25 +47,57 @@ class AdController extends Controller
 
     public function domain($domain_id)
     {
-        $ads = Ad::where('domain_id', $domain_id)->latest()->get();
+        $ads = Ad::where('domain_id', $domain_id)->latest()->paginate(10);
         if (count($ads) > 0) {
-            return ApiResponse::sendResponse(200, 'Ads in the domain retrieved successfully', AdResource::collection($ads));
+            if ($ads->total() > $ads->perPage()) {
+                $data = [
+                    'records' => AdResource::collection($ads),
+                    'pagination links' => [
+                        'current page' => $ads->currentPage(),
+                        'per page' => $ads->perPage(),
+                        'total' => $ads->total(),
+                        'links' => [
+                            'first' => $ads->url(1),
+                            'last' => $ads->url($ads->lastPage()),
+                        ],
+                    ],
+                ];
+            } else {
+                $data = AdResource::collection($ads);
+            }
+            return ApiResponse::sendResponse(200, 'Ads in the domain retrieved successfully', $data);
         }
         return ApiResponse::sendResponse(200, 'empty', []);
     }
+    
 
     public function search(Request $request)
     {
         $word = $request->has('search') ? $request->input('search') : null;
         $ads = Ad::when($word != null, function ($q) use ($word) {
             $q->where('title', 'like', '%' . $word . '%');
-        })->latest()->get();
+        })->latest()->paginate(2);
         if (count($ads) > 0) {
-            return ApiResponse::sendResponse(200, 'Search completed', AdResource::collection($ads));
+            if ($ads->total() > $ads->perPage()) {
+                $data = [
+                    'records' => AdResource::collection($ads),
+                    'pagination links' => [
+                        'current page' => $ads->currentPage(),
+                        'per page' => $ads->perPage(),
+                        'total' => $ads->total(),
+                        'links' => [
+                            'first' => $ads->url(1),
+                            'last' => $ads->url($ads->lastPage()),
+                        ],
+                    ],
+                ];
+            } else {
+                $data = AdResource::collection($ads);
+            }
+            return ApiResponse::sendResponse(200, 'Search completed', $data);
         }
         return ApiResponse::sendResponse(200, 'No matching data', []);
     }
-
     public function create(AdRequest $request)
     {
         $data = $request->validated();
@@ -98,9 +130,25 @@ class AdController extends Controller
 
     public function myads(Request $request)
     {
-        $ads = Ad::where('user_id', $request->user()->id)->latest()->get();
+        $ads = Ad::where('user_id', $request->user()->id)->latest()->paginate(10);
         if (count($ads) > 0) {
-            return ApiResponse::sendResponse(200, 'My ads retrieved successfully', AdResource::collection($ads));
+            if ($ads->total() > $ads->perPage()) {
+                $data = [
+                    'records' => AdResource::collection($ads),
+                    'pagination links' => [
+                        'current page' => $ads->currentPage(),
+                        'per page' => $ads->perPage(),
+                        'total' => $ads->total(),
+                        'links' => [
+                            'first' => $ads->url(1),
+                            'last' => $ads->url($ads->lastPage()),
+                        ],
+                    ],
+                ];
+            } else {
+                $data = AdResource::collection($ads);
+            }
+            return ApiResponse::sendResponse(200, 'My ads retrieved successfully', $data);
         }
         return ApiResponse::sendResponse(200, 'You don\'t have any ads', []);
     }
