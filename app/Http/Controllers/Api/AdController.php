@@ -45,4 +45,14 @@ class AdController extends Controller
         return ApiResponse::sendResponse(200, 'There are no latest ads', []);
     }
 
+    public function domain($domain_id)
+    {
+        $ads = Ad::where('domain_id', $domain_id)->latest()->get();
+        if (count($ads) > 0) {
+            return ApiResponse::sendResponse(200, 'Ads in the domain retrieved successfully', AdResource::collection($ads));
+        }
+        return ApiResponse::sendResponse(200, 'empty', []);
+    }
+
+
 }
