@@ -32,9 +32,11 @@ Route::prefix('ads')->controller(AdController::class)->group(function () {
     Route::get('/domain/{domain_id}', 'domain');
     Route::get('/search', 'search');
 
-    // User-specific ads endpoints without middleware for the token
-    Route::post('create', 'create');
-    Route::post('update/{adId}', 'update');
-    Route::get('delete/{adId}', 'delete');
-    Route::get('myads', 'myads');
+    // User-specific ads endpoints
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('create', 'create');
+        Route::post('update/{adId}', 'update');
+        Route::get('delete/{adId}', 'delete');
+        Route::get('myads', 'myads');
+    });
 });
