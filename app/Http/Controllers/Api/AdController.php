@@ -74,5 +74,18 @@ class AdController extends Controller
         if ($record) return ApiResponse::sendResponse(201, 'Your Ad created successfully', new AdResource($record));
     }
 
+    public function update(AdRequest $request, $adId)
+    {
+        $ad = Ad::findOrFail($adId);
+        if ($ad->user_id != $request->user()->id) {
+            return ApiResponse::sendResponse(403, 'You aren\'t allowed to take this action', []);
+        }
+
+        $data = $request->validated();
+        $updating = $ad->update($data);
+        if ($updating) return ApiResponse::sendResponse(201, 'Your Ad updated successfully', new AdResource($ad));
+    }
+
+
 
 }
