@@ -73,4 +73,11 @@ class AuthController extends Controller
         return ApiResponse::sendResponse(401, 'Invalid credentials', []);
        }
     }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return ApiResponse::sendResponse(200, 'User Logged out Successfully', []);
+    }
 }
+ 
