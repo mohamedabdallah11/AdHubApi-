@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AdController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\DistrictController;
@@ -20,9 +21,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//Auth
+Route::controller(AuthController::class)->group(function () {
+    Route::post('/register', 'register');
+    Route::post('/login', 'login');
+    Route::post('/logout', 'logout');
 });
+
 Route::get('/settings',SettingController::class);
 Route::get('/cities',CityController::class);
 Route::get('/districts/{city_id}',DistrictController::class);
