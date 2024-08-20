@@ -36,5 +36,13 @@ class AdController extends Controller
         return ApiResponse::sendResponse(200, 'No Ads available', []);
     }
 
+    public function latest()
+    {
+        $ads = Ad::latest()->take(2)->get();
+        if (count($ads) > 0) {
+            return ApiResponse::sendResponse(200, 'Latest Ads Retrieved Successfully', AdResource::collection($ads));
+        }
+        return ApiResponse::sendResponse(200, 'There are no latest ads', []);
+    }
 
 }
