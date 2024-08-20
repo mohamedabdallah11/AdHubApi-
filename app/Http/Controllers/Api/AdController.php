@@ -66,5 +66,13 @@ class AdController extends Controller
         return ApiResponse::sendResponse(200, 'No matching data', []);
     }
 
+    public function create(AdRequest $request)
+    {
+        $data = $request->validated();
+        $data['user_id'] = $request->user()->id;
+        $record = Ad::create($data);
+        if ($record) return ApiResponse::sendResponse(201, 'Your Ad created successfully', new AdResource($record));
+    }
+
 
 }
