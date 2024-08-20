@@ -26,7 +26,7 @@ return new class extends Migration
             $table->text('persons_text')->nullable();
             $table->text('contact_us_text')->nullable();
             $table->text('terms_text')->nullable();
-
+            $table->text('activity_terms')->nullable();
             $table->string('counter1_name')->nullable();
             $table->bigInteger('counter1_count')->nullable();
             $table->string('counter2_name')->nullable();
@@ -51,7 +51,10 @@ return new class extends Migration
             $table->string('twitter')->nullable();
             $table->string('pinterest')->nullable();
             $table->text('map')->nullable();
-            
+            $table->string('google_play')->nullable();
+            $table->string('app_store')->nullable();
+            $table->string('ad_link_1')->nullable();
+            $table->string('ad_link_2')->nullable();
             $table->timestamps();
         });
     }
