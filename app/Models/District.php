@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class City extends Model
+class District extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class City extends Model
      *
      * @var string
      */
-    protected $table = 'cities';
+    protected $table = 'districts';
 
     /**
      * The primary key associated with the table.
@@ -43,7 +43,7 @@ class City extends Model
      * @var bool
      */
     public $timestamps = true;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -52,30 +52,29 @@ class City extends Model
     protected $guarded = ['id'];
 
     /**
-    * The attributes that should be cast.
-    *
-    * @var array
-    */
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
     protected $casts = [
         // 'status' => Status::class,
     ];
 
+    /**
+     * fields ordering in filteration
+     */
     const ORDER = ['name'];
 
-    /**
-     * Upload Path
-     */
+   
     const UPLOADPATH = '';
 
-    /**
-     * fields that will handle upload document
-     */
     const UPLOADFIELDS = [];
 
-    public function districts() 
+    public function city()
     {
-        return $this->hasMany(District::class);
+        return $this->belongsTo(City::class);
     }
+
 
 
 }

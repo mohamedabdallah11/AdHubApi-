@@ -16,7 +16,7 @@ class CityController extends Controller
     public function __invoke(Request $request)
     {
         $cities = City::all();
-        if ($cities)
+        if ($cities->count() > 0)
         {
             return ApiResponse::sendResponse(200, 'cities retrieved successfully ',CityResource::collection($cities));
             
