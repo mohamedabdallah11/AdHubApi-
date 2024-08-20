@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -20,7 +21,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
+        'google_id'
     ];
 
     /**
@@ -40,6 +43,25 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
+
+    const ORDER = ['name', 'email'];
+
+    public function ads()
+    {
+        return $this->hasMany(Ad::class);
+    }
+
+
+    public function nameOnHeader()
+    {
+        if (strlen($this->name) > 10) {
+            return \substr($this->name, 0, 10) . '..';
+        }
+        return $this->name;
+    }
+
+
+
+
 }
