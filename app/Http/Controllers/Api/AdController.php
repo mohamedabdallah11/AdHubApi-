@@ -96,5 +96,12 @@ class AdController extends Controller
         if ($success) return ApiResponse::sendResponse(200, 'Your Ad deleted successfully', []);
     }
 
-
+    public function myads(Request $request)
+    {
+        $ads = Ad::where('user_id', $request->user()->id)->latest()->get();
+        if (count($ads) > 0) {
+            return ApiResponse::sendResponse(200, 'My ads retrieved successfully', AdResource::collection($ads));
+        }
+        return ApiResponse::sendResponse(200, 'You don\'t have any ads', []);
+    }
 }
