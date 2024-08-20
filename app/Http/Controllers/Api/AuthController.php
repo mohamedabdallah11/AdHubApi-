@@ -16,7 +16,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
 
-        $validator=Validator::make($request->all(),[
+  /*       $validator=Validator::make($request->all(),[
             'name' => ['required','string','max:255'],
             'email' => ['required','string','email','max:255','unique:'.User::class],
             'password' => ['required','confirmed', Rules\Password::defaults()],
@@ -40,8 +40,18 @@ class AuthController extends Controller
         $data['name'] = $user->name;
         $data['email'] = $user->email;
 
-        return ApiResponse::sendResponse(201, 'User created successfully', $data); 
+        return ApiResponse::sendResponse(201, 'User created successfully', $data);  */
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
+        $data['token'] = $user->createToken('authToken')->plainTextToken;
+        $data['name'] = $user->name;
+        $data['email'] = $user->email;
+
+        return ApiResponse::sendResponse(201, 'User created successfully', $data);
     }
     public function login(Request $request)
     {
