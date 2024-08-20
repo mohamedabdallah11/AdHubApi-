@@ -15,6 +15,8 @@ class DistrictController extends Controller
     public function __invoke(Request $request,$city_id)
     {
         $districts = District::where('city_id',$city_id)->get();
+       // $districts = District::where('city_id',$request->input('city'))->get();  // to use it remove the city_id param from the __invoke params and remove it from the route endpoint
+
         if ($districts->count() > 0)
         {
             return ApiResponse::sendResponse(200, 'districts retrieved successfully ',DistrictResource::collection($districts));
