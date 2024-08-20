@@ -17,6 +17,8 @@ class DomainResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'ads_count' => count($this->approvedAds)
+            
         ];
     }
 }
