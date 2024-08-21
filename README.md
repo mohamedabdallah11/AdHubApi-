@@ -10,6 +10,58 @@
 
 AdHub - A dynamic platform for creating, managing, and browsing advertisements. Users can post their ads, search for listings, and engage with a wide range of categories. Built for scalability and ease of use, AdHub aims to be a comprehensive solution for online advertisement management.
 
+## Postman Collection
+
+You can view and interact with the AdHub API using the Postman collection. Import the collection to test the API endpoints:
+
+- [AdHub API Postman Collection] (https://documenter.getpostman.com/view/37675046/2sA3sAiTwU)
+
+## Installation
+
+1. **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/mohamedabdallah11/AdHubApi-
+    ```
+
+2. **Navigate to the project directory:**
+
+    ```bash
+    cd AdHubApi-
+    ```
+
+3. **Install dependencies:**
+
+    ```bash
+    composer install
+    ```
+
+4. **Copy the `.env.example` file to `.env` and update your environment variables:**
+
+    ```bash
+    cp .env.example .env
+    ```
+
+5. **Generate the application key:**
+
+    ```bash
+    php artisan key:generate
+    ```
+
+6. **Run migrations and seed the database (if applicable):**
+
+    ```bash
+    php artisan migrate
+    php artisan db:seed
+    ```
+
+7. **Start the development server:**
+
+    ```bash
+    php artisan serve
+    ```
+
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
