@@ -15,7 +15,13 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
     public function register(RegisterRequest  $request)
-    {
+    {      
+        $existingUser = User::where('email', $request->email)->first();
+
+        if ($existingUser) {
+            
+            return ApiResponse::sendResponse(409, 'User with this email already exists', []);
+        }
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
